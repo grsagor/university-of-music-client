@@ -4,7 +4,7 @@ import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
 
 const Signup = () => {
 
-    const {createUser} = useContext(AuthContext);
+    const {createUser, updateUserProfile} = useContext(AuthContext);
 
     const handleSignUp = event => {
         event.preventDefault();
@@ -12,13 +12,26 @@ const Signup = () => {
         const email = form.email.value;
         const password = form.password.value;
         const photo = form.photo.value;
+        const name = form.name.value;
 
         createUser(email, password)
             .then(result => {
                 const user = result.user;
                 console.log(user);
+                handleUpdateUserProfile(name, photo);
             })
             .catch(err => console.error(err));
+    }
+
+    const handleUpdateUserProfile = (name, photo) => {
+        const profile = {
+            displayName: name,
+            photoURL: photo
+        }
+
+        updateUserProfile(profile)
+            .then(() => { })
+            .catch(error => console.error(error));
     }
     return (
         <div className="hero min-h-screen bg-base-200">
