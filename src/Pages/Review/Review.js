@@ -3,9 +3,13 @@ import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
 import SingleReview from './SingleReview/SingleReview';
 
 const Review = ({service}) => {
-    const [reviews, setReviews] = useState([]);
     const {_id, title} = service;
-    const {user} = useContext(AuthContext);
+    const {user, setLoading} = useContext(AuthContext);
+    const [reviews, setReviews] = useState([]);
+
+    if(!reviews){
+        setLoading(true);
+    }
 
     const url = `http://localhost:5000/reviews?id=${_id}`
     useEffect( () => {
@@ -46,6 +50,23 @@ const Review = ({service}) => {
         })
         .catch(err => console.error(err));
     }
+
+    const handleDelete = id => {
+        fetch(`http://localhost:5000/reviews/${id}`, {
+            method: 'DELETE'
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+            if(data.deletedCount > 0){
+                alert('Deleted Successfully');
+                const remaining = reviews.filter(review => review._id !== id);
+                console.log(remaining);
+                setReviews(remaining);
+            }
+        })
+    }
+
     return (
         <div>
             <form onSubmit={handleReview}>
@@ -56,6 +77,7 @@ const Review = ({service}) => {
                 {
                     reviews.map( review => <SingleReview
                         review = {review}
+                        handleDelete = {handleDelete}
                     ></SingleReview>)
                 }
             </div>
