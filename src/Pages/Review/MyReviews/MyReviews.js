@@ -15,6 +15,7 @@ const MyReviews = () => {
             setMyreviews(data);
         })
     },[])
+
     return (
         <div>
             <h2>My Reviews</h2>

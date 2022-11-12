@@ -19,7 +19,7 @@ const Review = ({service}) => {
     const handleReview = event => {
         event.preventDefault();
         const form = event.target;
-        const name = user.displayName;
+        const name = user?.displayName;
         const review = form.review.value;
 
         const reviews = {
