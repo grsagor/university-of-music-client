@@ -26,7 +26,7 @@ const Review = ({service}) => {
         const name = user?.displayName;
         const review = form.review.value;
 
-        const reviews = {
+        const newreviews = {
             service: _id,
             serviceName: title,
             userName: name,
@@ -38,13 +38,15 @@ const Review = ({service}) => {
             headers: {
                 'content-type': 'application/json'
             },
-            body: JSON.stringify(reviews)
+            body: JSON.stringify(newreviews)
         })
         .then(res => res.json())
         .then(data => {
             console.log(data);
             if(data.acknowledged){
                 alert('Review submitted successfully');
+                const newReviews = [newreviews,...reviews]
+                setReviews(newReviews);
                 form.reset();
             }
         })

@@ -19,7 +19,7 @@ const Header = () => {
       <>
         <li className='font-semibold'><Link>{user?.displayName}</Link></li>
         <li className='font-semibold'><Link to='/myreviews'>My Reviews</Link></li>
-        <li className='font-semibold'><Link>Add Service</Link></li>
+        <li className='font-semibold'><Link to='/addservice'>Add Service</Link></li>
         <li className='font-semibold'><Link onClick={handleLogOut}>Sign Out</Link></li>
       </>
       :
