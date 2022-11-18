@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import ServiceCard from './ServiceCard';
 
 const Services = () => {
     const [services, setServices] = useState([]);
+    const [count, setCount] = useState();
     useEffect( () => {
-        fetch('http://localhost:5000/services')
+        fetch('http://localhost:5000/home')
             .then(res => res.json())
-            .then(data => setServices(data))
+            .then(data => {
+                setServices(data.services);
+                setCount(data.count);
+            })
     }, [])
     return (
         <div className='text-center mb-4'>
@@ -23,6 +28,7 @@ const Services = () => {
                     ></ServiceCard>)
                 }
             </div>
+            <Link to='/allservices'><button class="btn btn-secondary">See All Services</button></Link>
         </div>
     );
 };
