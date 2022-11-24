@@ -1,18 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
 
-const SingleReview = ({review, handleDelete}) => {
-    // const handleDelete = id => {
-    //     fetch(`http://localhost:5000/reviews/${id}`, {
-    //         method: 'DELETE'
-    //     })
-    //     .then(res => res.json())
-    //     .then(data => {
-    //         console.log(data)
-    //     })
-    // }
+const SingleReview = ({review}) => {
+    const {user} = useContext(AuthContext);
+    console.log(review.photo);
     return (
-        <div>
-            <h2>{review.review} <button onClick={() => handleDelete(review._id)} className='btn'>Delete</button></h2>
+        <div className='bg-slate-800 w-1/4 mx-auto my-4 p-8 rounded'>
+            <div className='flex'>
+                <div><img className='w-6 rounded-full items-center' src={review.photo} alt="" srcset="" /></div>
+                <div className='ml-4'><h2 className='text-xs'>{review.userName}</h2></div>
+            </div>
+            <h2 className='ml-10 text-orange-500'>{review.review}</h2>
         </div>
     );
 };

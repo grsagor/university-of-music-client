@@ -17,7 +17,6 @@ const Header = () => {
     {
       user?.uid?
       <>
-        <li className='font-semibold'><Link>{user?.displayName}</Link></li>
         <li className='font-semibold'><Link to='/myreviews'>My Reviews</Link></li>
         <li className='font-semibold'><Link to='/addservice'>Add Service</Link></li>
         <li className='font-semibold'><Link onClick={handleLogOut}>Sign Out</Link></li>
@@ -38,7 +37,7 @@ const Header = () => {
             {menuItem}
           </ul>
         </div>
-        <Link to='/' className="btn btn-ghost normal-case text-xl">daisyUI</Link>
+        <Link to='/' className="btn btn-ghost normal-case text-xl">University Of Music</Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal p-0">
@@ -46,7 +45,7 @@ const Header = () => {
         </ul>
       </div>
       <div className="navbar-end">
-        <a className="btn">Get started</a>
+        <Link to='/blog' className="btn">Blog</Link>
       </div>
     </div>
   );

@@ -11,7 +11,7 @@ const Review = ({service}) => {
         setLoading(true);
     }
 
-    const url = `http://localhost:5000/reviews?id=${_id}`
+    const url = `https://assignment-11-server-iota-six.vercel.app/reviews?id=${_id}`
     useEffect( () => {
         fetch(url)
         .then(res => res.json())
@@ -31,9 +31,11 @@ const Review = ({service}) => {
             serviceName: title,
             userName: name,
             review: review,
+            photo: user.photoURL,
+            email: user.email
         }
 
-        fetch('http://localhost:5000/reviews', {
+        fetch('https://assignment-11-server-iota-six.vercel.app/reviews', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -53,33 +55,17 @@ const Review = ({service}) => {
         .catch(err => console.error(err));
     }
 
-    const handleDelete = id => {
-        fetch(`http://localhost:5000/reviews/${id}`, {
-            method: 'DELETE'
-        })
-        .then(res => res.json())
-        .then(data => {
-            console.log(data);
-            if(data.deletedCount > 0){
-                alert('Deleted Successfully');
-                const remaining = reviews.filter(review => review._id !== id);
-                console.log(remaining);
-                setReviews(remaining);
-            }
-        })
-    }
 
     return (
         <div>
-            <form onSubmit={handleReview}>
-                <textarea className='textarea textarea-bordered h-24 w-full' type="text" name="review" placeholder='Enter Your Review' id="" />
-                <input className='btn' type="submit" value="Submit Your Review" />
+            <form className='mx-auto w-3/4' onSubmit={handleReview}>
+                <textarea className='textarea textarea-bordered h-16 w-full' type="text" name="review" placeholder='Enter Your Review' id="" />
+                <div className='w-1/4 mx-auto'><input className='btn w-full' type="submit" value="Submit Your Review" /></div>
             </form>
             <div>
                 {
                     reviews.map( review => <SingleReview
                         review = {review}
-                        handleDelete = {handleDelete}
                     ></SingleReview>)
                 }
             </div>

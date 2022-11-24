@@ -6,7 +6,7 @@ const Services = () => {
     const [services, setServices] = useState([]);
     const [count, setCount] = useState();
     useEffect( () => {
-        fetch('http://localhost:5000/home')
+        fetch('https://assignment-11-server-iota-six.vercel.app/home')
             .then(res => res.json())
             .then(data => {
                 setServices(data.services);
@@ -15,12 +15,10 @@ const Services = () => {
     }, [])
     return (
         <div className='text-center mb-4'>
-            <div>
-                <p className='text-2xl font-bold text-orange-600'>Services</p>
-                <h2 className="text-5xl font-semibold">Our Service Area</h2>
-                <p>Just something test</p>
+            <div className='my-4'>
+                <h2 className="text-5xl font-semibold text-orange-600">Our Services</h2>
             </div>
-            <div className='grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
+            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
                 {
                     services.map(service => <ServiceCard
                         key={service._id}
@@ -28,7 +26,7 @@ const Services = () => {
                     ></ServiceCard>)
                 }
             </div>
-            <Link to='/allservices'><button class="btn btn-secondary">See All Services</button></Link>
+            <Link to='/allservices'><button class="btn">See All Services</button></Link>
         </div>
     );
 };

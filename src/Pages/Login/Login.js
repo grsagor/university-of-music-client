@@ -1,10 +1,29 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
+import { GoogleAuthProvider, GithubAuthProvider } from 'firebase/auth';
+import useTitle from '../../hooks/useTitle';
 
 const Login = () => {
+    useTitle('Login');
+    const googleProvider = new GoogleAuthProvider();
 
-    const {login} = useContext(AuthContext);
+    const location = useLocation();
+    const navigate = useNavigate();
+
+    const from = location.state?.from?.pathname || '/';
+
+
+    const {login,providerLogin} = useContext(AuthContext);
+
+    const handleGoogleSignIn = () => {
+        providerLogin(googleProvider)
+            .then(res => {
+                console.log(res.user);
+                navigate(from, { replace: true });
+            })
+            .catch(error => console.log(error.message))
+    }
 
     const handleLogIn = event => {
         event.preventDefault();
@@ -15,6 +34,7 @@ const Login = () => {
         login(email, password)
          .then(result => {
             const user = result.user;
+            navigate(from, {replace: true});
             console.log(user);
          })
          .catch(err => console.log(err));
@@ -47,7 +67,11 @@ const Login = () => {
                             <button className="btn btn-primary">Login</button>
                         </div>
                     </form>
-                    <p>New? <Link to='/signup'>Sign Up</Link></p>
+                    <p>New? <Link to='/signup'><button className='btn'>Sign Up</button></Link> Or,</p>
+
+                    <div className='text-center'>
+                    <div className='m-2'><button className='btn btn-primary' onClick={handleGoogleSignIn}>Log In Google</button></div>
+            </div>
                 </div>
             </div>
         </div>
