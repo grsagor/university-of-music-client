@@ -20,4 +20,4 @@ const Footer = () => {
     );
 };
 
-export default Footer; <h2>This is footer</h2>
+export default Footer;
